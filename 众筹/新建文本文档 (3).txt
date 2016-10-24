@@ -1,0 +1,50 @@
+function preScroll(){
+	var config = {
+		autoSlide : false,
+		effect: 'hSlide',
+		timeout: 3000,
+		speed: 800,
+		eventType: 'mouseover',
+		selectedClass: 'current',
+		carousel: true
+	};
+
+	var scrollLen1 = document.querySelector('#content1').all('.item').length;
+	var scrollLen2 = document.querySelector('#content2').all('.item').length;
+	var scrollLen3 = document.querySelector('#content3').all('.item').length;
+
+	if(scrollLen1){
+		var preScroll1 = new Slide('#content1', config);
+	}
+	if(scrollLen2){
+		var preScroll2 = new Slide('#content2', config);
+	}
+	if(scrollLen3){
+		var preScroll3 = new Slide('#content3', config);
+	}
+
+	$(document).delegate('click', '.J_preSL', function(e){
+		e.stopPropagation();
+		preScroll && preScroll.previous();
+		setTimeout(function(){
+			preScroll2 && preScroll2.previous();
+		}, 600);
+		setTimeout(function(){
+			preScroll3 && preScroll3.previous();
+		}, 1200);
+	}).delegate('click', '.J_preSR', function(e){
+		e.stopPropagation();
+		preScroll1 && preScroll1.next();
+		setTimeout(function(){
+			preScroll2 && preScroll2.next();
+		}, 600);
+		setTimeout(function(){
+			preScroll3 && preScroll3.next();
+		}, 1200);
+	}).delegate('click', '.new-change', function(e){
+		var $target = $(e.currentTarget);
+		$('.new-change').removeClass('on');
+		$target.addClass('on');
+	});
+}
+preScroll();
